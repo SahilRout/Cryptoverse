@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import { makeStyles } from '@material-ui/styles';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import './App.css';
-
+import Header from './components/Header';
+import CoinPage from './pages/CoinPage';
+import Homepage from './pages/Homepage';
+import 'react-toastify/dist/ReactToastify.css';
+const useStyles = makeStyles(() => ({
+  App: {
+    backgroundColor: "#282c34",
+    color: "white",
+    minHeight: "100vh"
+  },
+}));
 function App() {
+
+  const classes = useStyles()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={classes.App}>
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<Homepage />} />
+          <Route path='/coins/:id' element={<CoinPage />} />
+        </Routes>
+      </div>
+      <ToastContainer />
+    </Router>
   );
 }
 
